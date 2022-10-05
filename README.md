@@ -1,2 +1,2 @@
-## 2*2*2 Rubik solver
+## 2x2x2 Rubik solver
 Recently, I happen to teach a tutoring class on graph theory (especially traversal). So, I decide to make an example of using BFS to solve Rubik's cube. Choosing Rubik of size 2 simplifies a lot of coding but the idea remains the same.
