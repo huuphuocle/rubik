@@ -1,5 +1,5 @@
 public class Node{
-    private int label;
+    protected int label;
 
     public Node(){
         label = 0;

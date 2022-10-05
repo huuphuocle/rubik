@@ -42,22 +42,28 @@ public class Test{
         // System.out.println(R);
         R.moveB2();
         // System.out.println(R);
-        R.moveD2();
+        // R.moveD2();
         // System.out.println(R);
-        R.moveR2();
+        // R.moveR2();
         // System.out.println(R);
+
+        R.resetMove();
         return R;
     }
 
     public static void main(String[] args){
         Rubik S = Rubik.finalState();
         Rubik R = testRubik();
-        System.out.println(R);
-
+        
         RubikGraph RG = new RubikGraph();
         BFS bfs2 = new BFS(RG);
-        System.out.println(bfs2.search(R, S));
-        // LinkedList<Node> r = bfs2.route(R, S);
-        // Traversal.printRoute(r);
+        bfs2.search(R, S);
+        LinkedList<Node> r = bfs2.route(R, S);
+        Traversal.printRoute(r);
+
+        // LinkedList<Node> neighbors = RG.getNeighbors(R);
+        // for(int i = 0; i < 6; ++i){
+        //     System.out.println((Rubik) neighbors.get(i));
+        // }
     }
 }

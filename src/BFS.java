@@ -20,7 +20,6 @@ public class BFS extends Traversal{
 
         while(processing_queue.size() != 0){
             Node u = processing_queue.poll();
-            System.out.println(u);
             visited.add(u);
             if(u.equals(w)){
                 visited.clear();
@@ -30,12 +29,10 @@ public class BFS extends Traversal{
             it = list_neighbors.iterator();
             while(it.hasNext()){
                 Node p = it.next();
-                System.out.println(p);
                 if(!visited.contains(p)){
                     processing_queue.add(p);
                     parent.put(p, u);
                 }
-            break;
             }
         }
         visited.clear();

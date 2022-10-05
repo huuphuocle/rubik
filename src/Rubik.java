@@ -1,11 +1,18 @@
 public class Rubik extends Node {
+    enum Move {
+        O, D, D2, B, B2, R, R2
+    }
+
     private Cell[] state;
+    private Move move;
 
     public Rubik(){
+        move = Move.O;
         Cell[] state = new Cell[8];
     }
 
     public Rubik(Cell[] state){
+        move = Move.O;
         this.state = state;
     }
 
@@ -13,7 +20,8 @@ public class Rubik extends Node {
     public Rubik clone(){
         Cell[] cells = new Cell[8];
         for(int i = 0; i < 8; ++i){
-            cells[i] = new Cell(state[i].faces);
+            cells[i] = new Cell(new Color[]{state[i].faces[0],
+                                        state[i].faces[1],state[i].faces[2]});
         } 
         return new Rubik(cells);
     }
@@ -38,6 +46,7 @@ public class Rubik extends Node {
         state[6] = state[5];
         state[5] = state[4];
         state[4] = temp;
+        move = Move.D;
     }
 
     public void moveD2(){
@@ -46,9 +55,10 @@ public class Rubik extends Node {
         state[4] = state[5];
         state[5] = state[6];
         state[6] = temp;
+        move = Move.D2;
     }
 
-    public void moveB(){        
+    public void moveB(){       
         Cell temp = state[3];
         state[3] = state[2];
         state[2] = state[6];
@@ -58,10 +68,12 @@ public class Rubik extends Node {
         state[2].shiftB();
         state[6].shiftF();
         state[7].shiftB();
+        move = Move.B;
     }
 
     public void moveB2(){
         moveB();moveB();moveB();
+        move = Move.B2;
         // Cell temp = state[3];
         // state[3] = state[7];
         // state[7] = state[6];
@@ -79,6 +91,7 @@ public class Rubik extends Node {
         state[5].shiftF();
         state[6].shiftB();
         state[2].shiftF();
+        move = Move.R;
     }
 
     public void moveR2(){
@@ -88,6 +101,11 @@ public class Rubik extends Node {
         // state[2] = state[6];
         // state[6] = state[5];
         // state[5] = temp;
+        move = Move.R2;
+    }
+
+    public void resetMove(){
+        move = Move.O;
     }
 
     @Override
@@ -102,7 +120,7 @@ public class Rubik extends Node {
     @Override
     public String toString(){
         StringBuilder s = new StringBuilder();
-        s.append("===================================\n");
+        s.append("================ " + move + " ================\n");
 
         s.append("U : " + state[0].faces[0] + ", " + state[3].faces[0]
             + ", " + state[2].faces[0] + ", " + state[1].faces[0] + "\n");
@@ -122,13 +140,13 @@ public class Rubik extends Node {
         s.append("B : " + state[2].faces[1] + ", " + state[3].faces[2] 
             + ", " + state[7].faces[1] + ", " + state[6].faces[2] + "\n");
 
-        s.append("===================================\n");
+        s.append("===================================");
         return s.toString();
     }
 
-    // Placeholder
-    // @Override
-    // public int getLabel(){
-    //     return 0;
-    // }
+    @Override
+    public int hashCode(){
+        return state[0].faces[0].ordinal() + state[1].faces[0].ordinal()
+                + state[2].faces[0].ordinal() + state[3].faces[0].ordinal();
+    }
 }
