@@ -53,19 +53,28 @@ public class Graph{
         G.addEdge(v1,v3);
         G.addEdge(v3,v4);
         G.printGraph();
+        
+        DFS dfs = new DFS(G);
+        System.out.println(dfs.search(v2, v4));
+        LinkedList<Node> r = dfs.route(v2,v4);
+        System.out.println(dfs.search(v1, v2));
+        r = dfs.route(v1,v2);
+        System.out.println(dfs.search(v1, v5));
+        // r = search.route(v1,v5);
+        
+        BFS bfs = new BFS(G);
+        System.out.println(bfs.search(v2, v4));
+        r = bfs.route(v2,v4);
+        System.out.println(bfs.search(v2, v3));
+        r = bfs.route(v2,v3);
+        System.out.println(bfs.search(v1, v5));
+        // r = search2.route(v1,v5);
 
-        DFS search = new DFS(G);
-        System.out.println(search.searchDFS(v2, v4));
-        // System.out.println(search.searchDFS(v1, v2));
-        // System.out.println(search.searchDFS(v1, v5));
-        LinkedList<Node> r = search.route(v2,v4);
-        Iterator<Node> it = r.iterator();
-        while(it.hasNext()) System.out.print(it.next().getLabel() + " -> ");
-
-
-        // BFS search2 = new BFS(G);
-        // System.out.println(search2.searchBFS(v1, v2));
-        // System.out.println(search2.searchBFS(v2, v3));
-        // System.out.println(search2.searchBFS(v1, v5));
+        Rubik R = Rubik.finalState();
+        R.print();
+        R.moveD();
+        R.print();
+        R.moveD2();
+        R.print();
     }
 }

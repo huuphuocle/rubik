@@ -1,25 +1,26 @@
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.HashSet;
+import java.util.HashMap;
 
-public class BFS{
-    private Graph G;
-    private HashSet<Node> visited;
+public class BFS extends Traversal{
     private LinkedList<Node> processing_queue;
 
     public BFS(Graph G){
-        this.G = G;
-        visited = new HashSet<Node>();
+        super(G);
         processing_queue = new LinkedList<Node>();
     }
 
-    public boolean searchBFS(Node v, Node w){
+    @Override
+    public boolean search(Node v, Node w){
+        parent.clear();
         processing_queue.add(v);
         LinkedList<Node> list_neighbors;
         Iterator<Node> it;
 
         while(processing_queue.size() != 0){
             Node u = processing_queue.poll();
+            visited.add(u);
             if(u.equals(w)){
                 visited.clear();
                 return true;
@@ -27,10 +28,10 @@ public class BFS{
             list_neighbors = G.getNeighbors(u);
             it = list_neighbors.iterator();
             while(it.hasNext()){
-                u = it.next();
-                if(!visited.contains(u)){
-                    visited.add(u);
-                    processing_queue.add(u);
+                Node p = it.next();
+                if(!visited.contains(p)){
+                    processing_queue.add(p);
+                    parent.put(p, u);
                 }
 
             }

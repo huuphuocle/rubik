@@ -4,20 +4,18 @@ import java.util.HashSet;
 import java.util.HashMap;
 import java.util.Stack;
 
-public class DFS{
-    private Graph G;
-    private HashSet<Node> visited;
+public class DFS extends Traversal{
+    
     private Stack<Node> processing_stack;
-    private HashMap<Node, Node> parent;
 
     public DFS(Graph G){
-        this.G = G;
-        visited = new HashSet<Node>();
+        super(G);
         processing_stack = new Stack<Node>();
-        parent = new HashMap<Node, Node>();
     }
 
-    public boolean searchDFS(Node v, Node w){
+    @Override
+    public boolean search(Node v, Node w){
+        parent.clear();
         LinkedList<Node> list_neighbors;
         Iterator<Node> it;
 
@@ -44,17 +42,5 @@ public class DFS{
         }
         visited.clear();
         return false;
-    }
-
-    public LinkedList<Node> route(Node v, Node w){
-        System.out.println("Route from v to w : ");
-        LinkedList<Node> trace = new LinkedList<Node>();
-        Node u = w;
-        trace.add(u);
-        do{
-            u = parent.get(u);
-            trace.add(u);
-        }while(!u.equals(v));
-        return trace;
     }
 }
