@@ -15,17 +15,26 @@ public abstract class Traversal{
     }
 
     public LinkedList<Node> route(Node v, Node w){
-        System.out.println("Route from v to w : ");
         LinkedList<Node> trace = new LinkedList<Node>();
         Node u = w;
         trace.add(u);
         while(!u.equals(v)){
-            System.out.print(u.getLabel() + " -> ");
             u = parent.get(u);
             trace.add(u);
         }
-        System.out.println(u.getLabel());
         return trace;
+    }
+
+    public HashMap<Node, Node> getParent(){
+        return parent;
+    }
+
+    public static void printRoute(LinkedList<Node> trace){
+        System.out.println("Route : ");
+        Iterator<Node> it = trace.iterator();
+        while(it.hasNext()){
+            System.out.print(it.next() + " -> ");
+        }
     }
 
     public abstract boolean search(Node v, Node w);

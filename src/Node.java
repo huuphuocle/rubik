@@ -13,13 +13,18 @@ public class Node{
         return label;
     }
 
-    // @Override
-    // public int hashCode(){
-    //     return label;
-    // }
+    @Override
+    public String toString(){
+        return "" + label;
+    }
+    
+    @Override
+    public int hashCode(){
+        return label;
+    }
 
-    // @Override
-    // public boolean equals(Object o){
-    //     return label == ((Node) o).label;
-    // }
+    @Override
+    public boolean equals(Object o){
+        return label == ((Node) o).label;
+    }
 }

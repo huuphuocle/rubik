@@ -99,34 +99,31 @@ public class Rubik extends Node {
         return true;
     }
 
-    public void print(){
-        System.out.println("===================================");
+    @Override
+    public String toString(){
+        StringBuilder s = new StringBuilder();
+        s.append("===================================\n");
 
-        System.out.print("U : ");
-        System.out.println(state[0].faces[0] + ", " + state[1].faces[0] 
-                            + ", " + state[2].faces[0] + ", " + state[3].faces[0]);
+        s.append("U : " + state[0].faces[0] + ", " + state[3].faces[0]
+            + ", " + state[2].faces[0] + ", " + state[1].faces[0] + "\n");
 
-        System.out.print("D : ");
-        System.out.println(state[4].faces[0] + ", " + state[5].faces[0] 
-                        + ", " + state[6].faces[0] + ", " + state[7].faces[0]);
+        s.append("D : " + state[4].faces[0] + ", " + state[5].faces[0] 
+            + ", " + state[6].faces[0] + ", " + state[7].faces[0] + "\n");
 
-        System.out.print("R : ");
-        System.out.println(state[1].faces[1] + ", " + state[2].faces[2] 
-                            + ", " + state[5].faces[2] + ", " + state[6].faces[1]);
+        s.append("R : " + state[1].faces[1] + ", " + state[2].faces[2] 
+            + ", " + state[6].faces[1] + ", " + state[5].faces[2] + "\n");
 
-        System.out.print("L : ");
-        System.out.println(state[0].faces[2] + ", " + state[3].faces[1] 
-                            + ", " + state[4].faces[1] + ", " + state[7].faces[2]);
+        s.append("L : " + state[3].faces[1] + ", " + state[0].faces[2]
+            + ", " + state[4].faces[1] + ", " + state[7].faces[2] + "\n");
 
-        System.out.print("F : ");
-        System.out.println(state[0].faces[1] + ", " + state[1].faces[2] 
-                            + ", " + state[4].faces[2] + ", " + state[5].faces[1]);
+        s.append("F : " + state[0].faces[1] + ", " + state[1].faces[2] 
+            + ", " + state[5].faces[1] + ", " + state[4].faces[2] + "\n");
 
-        System.out.print("B : ");
-        System.out.println(state[2].faces[1] + ", " + state[3].faces[2] 
-                            + ", " + state[6].faces[2] + ", " + state[7].faces[1]);
+        s.append("B : " + state[2].faces[1] + ", " + state[3].faces[2] 
+            + ", " + state[7].faces[1] + ", " + state[6].faces[2] + "\n");
 
-        System.out.println("===================================");
+        s.append("===================================\n");
+        return s.toString();
     }
 
     // Placeholder

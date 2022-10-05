@@ -31,17 +31,33 @@ public class Test{
         System.out.println(bfs.search(v1, v5));
     }
 
-    public static void main(String[] args){
-        
-        Rubik R = Rubik.finalState(), S = Rubik.finalState();
-        R.print();
+    public static Rubik testRubik(){
+        Rubik R = Rubik.finalState();
+        // System.out.println(R);
         R.moveD();
-        R.print();
+        // System.out.println(R);
+        R.moveB();
+        // System.out.println(R);
+        R.moveR();
+        // System.out.println(R);
+        R.moveB2();
+        // System.out.println(R);
         R.moveD2();
-        R.print();
+        // System.out.println(R);
+        R.moveR2();
+        // System.out.println(R);
+        return R;
+    }
+
+    public static void main(String[] args){
+        Rubik S = Rubik.finalState();
+        Rubik R = testRubik();
+        System.out.println(R);
 
         RubikGraph RG = new RubikGraph();
         BFS bfs2 = new BFS(RG);
         System.out.println(bfs2.search(R, S));
+        // LinkedList<Node> r = bfs2.route(R, S);
+        // Traversal.printRoute(r);
     }
 }
