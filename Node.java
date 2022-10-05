@@ -1,6 +1,10 @@
 public class Node{
     private int label;
 
+    public Node(){
+        label = 0;
+    }
+    
     public Node(int label){
         this.label = label;
     }
@@ -9,13 +13,13 @@ public class Node{
         return label;
     }
 
-    @Override
-    public int hashCode(){
-        return label;
-    }
+    // @Override
+    // public int hashCode(){
+    //     return label;
+    // }
 
-    @Override
-    public boolean equals(Object o){
-        return label == ((Node) o).label;
-    }
+    // @Override
+    // public boolean equals(Object o){
+    //     return label == ((Node) o).label;
+    // }
 }

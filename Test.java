@@ -1,5 +1,8 @@
+import java.util.LinkedList;
+
 public class Test{
-    public static void main(String[] args){
+
+    public static void basicTest(){
         Node v1 = new Node(1), v2 = new Node(2), v3 = new Node(3);
         Node v4 = new Node(4), v5 = new Node(5);
         Graph G = new Graph();
@@ -19,7 +22,6 @@ public class Test{
         System.out.println(dfs.search(v1, v2));
         r = dfs.route(v1,v2);
         System.out.println(dfs.search(v1, v5));
-        // r = search.route(v1,v5);
         
         BFS bfs = new BFS(G);
         System.out.println(bfs.search(v2, v4));
@@ -27,13 +29,19 @@ public class Test{
         System.out.println(bfs.search(v2, v3));
         r = bfs.route(v2,v3);
         System.out.println(bfs.search(v1, v5));
-        // r = search2.route(v1,v5);
-    
-        Rubik R = Rubik.finalState();
+    }
+
+    public static void main(String[] args){
+        
+        Rubik R = Rubik.finalState(), S = Rubik.finalState();
         R.print();
         R.moveD();
         R.print();
         R.moveD2();
         R.print();
+
+        RubikGraph RG = new RubikGraph();
+        BFS bfs2 = new BFS(RG);
+        System.out.println(bfs2.search(R, S));
     }
 }

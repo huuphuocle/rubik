@@ -1,4 +1,4 @@
-public class Rubik {
+public class Rubik extends Node {
     private Cell[] state;
 
     public Rubik(){
@@ -7,6 +7,15 @@ public class Rubik {
 
     public Rubik(Cell[] state){
         this.state = state;
+    }
+
+    @Override
+    public Rubik clone(){
+        Cell[] cells = new Cell[8];
+        for(int i = 0; i < 8; ++i){
+            cells[i] = new Cell(state[i].faces);
+        } 
+        return new Rubik(cells);
     }
 
     public static Rubik finalState(){
@@ -92,7 +101,7 @@ public class Rubik {
 
     public void print(){
         System.out.println("===================================");
-        
+
         System.out.print("U : ");
         System.out.println(state[0].faces[0] + ", " + state[1].faces[0] 
                             + ", " + state[2].faces[0] + ", " + state[3].faces[0]);
