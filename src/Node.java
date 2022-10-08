@@ -1,30 +1,61 @@
 public class Node{
-    protected int label;
+    public static int counter = 0;
 
-    public Node(){
-        label = 0;
-    }
-    
-    public Node(int label){
-        this.label = label;
+    public enum Move {
+        O, D, U, B, F, R, L
     }
 
-    public int getLabel(){
-        return label;
+    protected Rubik rubik;
+    protected int dist;
+    private Move edgeLabel; // store the move to arrive to current state
+
+    public Node(Rubik r){
+        dist = 0;
+        edgeLabel = Move.O;
+        rubik = r;
+        ++counter;
     }
+
+    public Node(Rubik r, Move label){
+        dist = 0;
+        edgeLabel = label;
+        rubik = r;
+        ++counter;
+    }
+
+    public Rubik getRubik(){
+        return rubik;
+    }
+
+    public Move getLabel(){
+        return edgeLabel;
+    }
+
+    public void setLabel(Move label){
+        edgeLabel = label;
+    }
+
+    public int getDist(){
+        return dist;
+    }
+
+    public void setDist(int d){
+        dist = d;
+    }
+
 
     @Override
     public String toString(){
-        return "" + label;
+        return "(" + edgeLabel +")" + rubik.toString();
     }
-    
+
     @Override
     public int hashCode(){
-        return label;
+        return rubik.hashCode();
     }
 
     @Override
     public boolean equals(Object o){
-        return label == ((Node) o).label;
+        return rubik.equals(((Node) o).rubik);
     }
 }

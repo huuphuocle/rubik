@@ -1,28 +1,61 @@
-public class Rubik extends Node {
-    enum Move {
-        O, D, D2, B, B2, R, R2
+public class Rubik {
+
+    public enum Color{
+        RED, GREEN, BLUE, WHITE, YELLOW, ORANGE
     }
 
+    static class Cell {
+
+        private Color[] faces;
+
+        public Cell(Color[] faces){
+            this.faces = faces;
+        }
+
+        private void shiftF(){
+            Color temp = faces[2];
+            faces[2] = faces[1];
+            faces[1] = faces[0];
+            faces[0] = temp;
+        }
+
+        private void shiftB(){
+            Color temp = faces[0];
+            faces[0] = faces[1];
+            faces[1] = faces[2];
+            faces[2] = temp;
+        }
+
+        @Override
+        public int hashCode(){
+            return faces[0].ordinal() + faces[1].ordinal() + faces[2].ordinal();
+        }
+
+        @Override
+        public boolean equals(Object o){
+            Cell co = (Cell) o;
+            return faces[0] == co.faces[0] && faces[1] == co.faces[1]
+                    && faces[2] == co.faces[2];
+        }
+    }
+
+
     private Cell[] state;
-    private Move move;
 
     public Rubik(){
-        move = Move.O;
         Cell[] state = new Cell[8];
     }
 
     public Rubik(Cell[] state){
-        move = Move.O;
         this.state = state;
     }
 
-    @Override
-    public Rubik clone(){
+    public Rubik copy(){
         Cell[] cells = new Cell[8];
         for(int i = 0; i < 8; ++i){
             cells[i] = new Cell(new Color[]{state[i].faces[0],
                                         state[i].faces[1],state[i].faces[2]});
-        } 
+        }
         return new Rubik(cells);
     }
 
@@ -46,19 +79,17 @@ public class Rubik extends Node {
         state[6] = state[5];
         state[5] = state[4];
         state[4] = temp;
-        move = Move.D;
     }
 
-    public void moveD2(){
+    public void moveU(){
         Cell temp = state[7];
         state[7] = state[4];
         state[4] = state[5];
         state[5] = state[6];
         state[6] = temp;
-        move = Move.D2;
     }
 
-    public void moveB(){       
+    public void moveB(){
         Cell temp = state[3];
         state[3] = state[2];
         state[2] = state[6];
@@ -68,12 +99,10 @@ public class Rubik extends Node {
         state[2].shiftB();
         state[6].shiftF();
         state[7].shiftB();
-        move = Move.B;
     }
 
-    public void moveB2(){
+    public void moveF(){
         moveB();moveB();moveB();
-        move = Move.B2;
         // Cell temp = state[3];
         // state[3] = state[7];
         // state[7] = state[6];
@@ -91,21 +120,15 @@ public class Rubik extends Node {
         state[5].shiftF();
         state[6].shiftB();
         state[2].shiftF();
-        move = Move.R;
     }
 
-    public void moveR2(){
+    public void moveL(){
         moveR();moveR();moveR();
         // Cell temp = state[1];
         // state[1] = state[2];
         // state[2] = state[6];
         // state[6] = state[5];
         // state[5] = temp;
-        move = Move.R2;
-    }
-
-    public void resetMove(){
-        move = Move.O;
     }
 
     @Override
@@ -113,31 +136,31 @@ public class Rubik extends Node {
         Rubik ro = (Rubik) o;
         for(int i = 0; i < 8; ++i){
             if(!state[i].equals(ro.state[i])) return false;
-        } 
+        }
         return true;
     }
 
     @Override
     public String toString(){
         StringBuilder s = new StringBuilder();
-        s.append("================ " + move + " ================\n");
+        s.append("===================================\n");
 
         s.append("U : " + state[0].faces[0] + ", " + state[3].faces[0]
             + ", " + state[2].faces[0] + ", " + state[1].faces[0] + "\n");
 
-        s.append("D : " + state[4].faces[0] + ", " + state[5].faces[0] 
+        s.append("D : " + state[4].faces[0] + ", " + state[5].faces[0]
             + ", " + state[6].faces[0] + ", " + state[7].faces[0] + "\n");
 
-        s.append("R : " + state[1].faces[1] + ", " + state[2].faces[2] 
+        s.append("R : " + state[1].faces[1] + ", " + state[2].faces[2]
             + ", " + state[6].faces[1] + ", " + state[5].faces[2] + "\n");
 
         s.append("L : " + state[3].faces[1] + ", " + state[0].faces[2]
             + ", " + state[4].faces[1] + ", " + state[7].faces[2] + "\n");
 
-        s.append("F : " + state[0].faces[1] + ", " + state[1].faces[2] 
+        s.append("F : " + state[0].faces[1] + ", " + state[1].faces[2]
             + ", " + state[5].faces[1] + ", " + state[4].faces[2] + "\n");
 
-        s.append("B : " + state[2].faces[1] + ", " + state[3].faces[2] 
+        s.append("B : " + state[2].faces[1] + ", " + state[3].faces[2]
             + ", " + state[7].faces[1] + ", " + state[6].faces[2] + "\n");
 
         s.append("===================================");
