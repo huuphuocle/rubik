@@ -66,25 +66,32 @@ public class RubikGraph{
     public LinkedList<Node> getNeighbors(Node v){
         Rubik ro = v.getRubik();
         LinkedList<Node> neighbors = new LinkedList<Node>();
+        Rubik r;
 
-        Rubik r = ro.copy(); r.moveD();
-        neighbors.add(new Node(r, Node.Move.D));
-
-        r = ro.copy(); r.moveU();
-        neighbors.add(new Node(r, Node.Move.U));
-
-        r = ro.copy(); r.moveB();
-        neighbors.add(new Node(r, Node.Move.B));
-
-        r = ro.copy(); r.moveF();
-        neighbors.add(new Node(r, Node.Move.F));
-
+        if(v.getLabel() != Node.Move.U){
+            r = ro.copy(); r.moveD();
+            neighbors.add(new Node(r, Node.Move.D));
+        }
+        if(v.getLabel() != Node.Move.D){
+            r = ro.copy(); r.moveU();
+            neighbors.add(new Node(r, Node.Move.U));
+        }
+        if(v.getLabel() != Node.Move.F){
+            r = ro.copy(); r.moveB();
+            neighbors.add(new Node(r, Node.Move.B));
+        }
+        if(v.getLabel() != Node.Move.B){
+            r = ro.copy(); r.moveF();
+            neighbors.add(new Node(r, Node.Move.F));
+        }
+        if(v.getLabel() != Node.Move.L){
         r = ro.copy(); r.moveR();
         neighbors.add(new Node(r, Node.Move.R));
-
-        r = ro.copy(); r.moveL();
-        neighbors.add(new Node(r, Node.Move.L));
-
+        }
+        if(v.getLabel() != Node.Move.R){
+            r = ro.copy(); r.moveL();
+            neighbors.add(new Node(r, Node.Move.L));
+        }
         return neighbors;
     }
 
@@ -103,6 +110,7 @@ public class RubikGraph{
             dist = u.getDist()+1;
 
             list_neighbors = getNeighbors(u);
+            System.out.println(Node.counter);
             it = list_neighbors.iterator();
             while(it.hasNext()){
                 Node p = it.next();
@@ -130,7 +138,7 @@ public class RubikGraph{
             dist = u.getDist()+1;
             list_neighbors = getNeighbors(u);
             addNode(v, list_neighbors);
-
+            System.out.println(Node.counter);
             it = list_neighbors.iterator();
             while(it.hasNext()){
                 Node p = it.next();
@@ -161,10 +169,10 @@ public class RubikGraph{
     }
 
     public static void printRoute(LinkedList<Node> trace){
-        System.out.print("Route : ");
+        System.out.println("Route:");
         Iterator<Node> it = trace.iterator();
         while(it.hasNext()){
-            System.out.print(it.next() + " -> ");
+            System.out.println(it.next() + " -> ");
         }
         System.out.println();
     }

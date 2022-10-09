@@ -2,7 +2,7 @@ import java.util.LinkedList;
 
 public class Test{
 
-    public static Rubik testRubik(){
+    public static void testRubik(){
         Rubik R = Rubik.finalState();
         System.out.println("Final state:");
         System.out.println(R);
@@ -26,22 +26,28 @@ public class Test{
         System.out.println(R);
         R.moveL();
         System.out.println(R);
+    }
 
+    public static Rubik createState(){
+        Rubik R = Rubik.finalState();
+        R.moveD();
+        R.moveB();
+        // R.moveR();
+        // R.moveF();
+        // R.moveU();
+        // R.moveL();
         return R;
     }
 
     public static void main(String[] args){
-        Rubik R = testRubik(), S = Rubik.finalState();
+        // testRubik();
+        Rubik R = createState(), S = Rubik.finalState();
         Node v = new Node(R), w = new Node(S);
         RubikGraph RG = RubikGraph.getGraph();
-
-        RG.search(v, w);
-        LinkedList<Node> route = RG.route(v, w);
-        RubikGraph.printRoute(route);
-        // RG.bfs(v);
         System.out.println(Node.counter);
-
-
-
+        // RG.search(v, w);
+        // LinkedList<Node> route = RG.route(v, w);
+        // RubikGraph.printRoute(route);
+        RG.bfs(w);
     }
 }
